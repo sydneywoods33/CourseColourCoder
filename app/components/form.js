@@ -1,31 +1,29 @@
 import React, { useState } from 'react';
 
-export default function FormPage() {
+export default function FormPage({ setCourseCodes }) {
   const [inputs, setInputs] = useState(["", "", ""]);
 
-  const handleAddInput = () => {
-    setInputs([...inputs, ""]);
+  const handleInputChange = (index, value) => {
+    const newInputs = [...inputs];
+    newInputs[index] = value;
+    setInputs(newInputs);
+    setCourseCodes(newInputs);
   };
 
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>Input Course Codes</h1>
       <form style={styles.form}>
-        {inputs.map((_, index) => (
+        {inputs.map((value, index) => (
           <input
             key={index}
             type="text"
             placeholder={`Input ${index + 1}`}
+            value={value}
             style={styles.input}
+            onChange={(e) => handleInputChange(index, e.target.value)}
           />
         ))}
-        <button
-          type="button"
-          style={styles.button}
-          onClick={handleAddInput}
-        >
-          Add Another Input
-        </button>
       </form>
     </div>
   );
@@ -33,35 +31,26 @@ export default function FormPage() {
 
 const styles = {
   container: {
-    fontFamily: 'Arial, sans-serif',
-    maxWidth: '400px',
-    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     padding: '20px',
-    textAlign: 'center',
   },
   title: {
     fontSize: '1.5rem',
+    fontWeight: 'bold',
     marginBottom: '20px',
-    color: '#333',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
+    alignItems: 'center',
   },
   input: {
+    width: '200px',
     padding: '10px',
-    fontSize: '1rem',
+    margin: '10px 0',
+    border: '1px solid black',
     borderRadius: '4px',
-    border: '1px solid #ccc',
-  },
-  button: {
-    padding: '10px',
-    fontSize: '1rem',
-    borderRadius: '4px',
-    border: 'none',
-    backgroundColor: '#007BFF',
-    color: '#fff',
-    cursor: 'pointer',
   },
 };

@@ -1,43 +1,60 @@
-import React from 'react';
-import './components/styles.css';
+"use client";
+
+import React, { useState } from 'react';
 import FormPage from './components/form';
 import GenerateButton from './components/generateButton';
 
 function Page() {
+  const [courseCodes, setCourseCodes] = useState([]);
+
+  const handleGenerate = () => {
+    console.log("Course Codes:", courseCodes);
+    alert("Colors have been generated for your courses!");
+  };
+
   return (
-    <div className="appBackground">
-      <div className="container">
-        <header className="header">
-          <h1 className="title">Course Colour Coder</h1>
-          <p className="description">
+    <div style={styles.appBackground}>
+      <div style={styles.container}>
+        <header style={styles.header}>
+          <h1 style={styles.title}>Course Colour Coder</h1>
+          <p style={styles.description}>
             Add your course codes, then generate a colour scheme to go with them!
           </p>
         </header>
-        {/* Render FormPage and GenerateButton components */}
-        <FormPage />
-        <GenerateButton />
+        <FormPage setCourseCodes={setCourseCodes} />
+        <GenerateButton onGenerate={handleGenerate} />
       </div>
     </div>
   );
 }
 
-
 const styles = {
   appBackground: {
-    backgroundColor: '#FCFCFC' ,
-    fontFamily: 'Poppins, sans-serif',
+    backgroundColor: '#eaeaea',
+    minHeight: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container: {
     textAlign: 'center',
-  }, 
-
-  title: {
-    fontSize: '3rem',
+    padding: '20px',
+  },
+  header: {
+    padding: '20px',
+    borderRadius: '8px',
     marginBottom: '20px',
+  },
+  title: {
+    fontSize: '4rem',
+    fontWeight: 'bold',
+    margin: '0',
     color: '#455073',
   },
-
   description: {
     fontSize: '1.2rem',
-    color: '#666',
-  }
-}
+    color: 'grey',
+  },
+};
+
 export default Page;
